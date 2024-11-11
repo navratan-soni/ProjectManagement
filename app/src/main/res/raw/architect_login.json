@@ -1,0 +1,25 @@
+{
+  "success": true,
+  "userId": "arch123",
+  "name": "John Doe",
+  "role": "Architect",
+  "token": "mock_token_123",
+  "projects": [
+    {
+      "projectId": "proj001",
+      "projectName": "Skyline Towers",
+      "userRole": "Architect",
+      "location": "Downtown",
+      "startDate": "2023-01-10",
+      "endDate": "2024-01-10"
+    },
+    {
+      "projectId": "proj002",
+      "projectName": "Green Acres",
+      "userRole": "Supervisor",
+      "location": "Suburbs",
+      "startDate": "2023-05-15",
+      "endDate": "2024-05-15"
+    }
+  ]
+}

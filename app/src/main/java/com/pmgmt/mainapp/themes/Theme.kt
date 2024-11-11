@@ -3,13 +3,15 @@ package com.pmgmt.mainapp.themes
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
-private val LightColorPalette = JetsnackColors(
+/*private val LightColorPalette = JetsnackColors(
     brand = Shadow5,
     brandSecondary = Ocean3,
     uiBackground = Neutral0,
@@ -62,7 +64,7 @@ private val DarkColorPalette = JetsnackColors(
 )
 
 @Composable
-fun JetsnackTheme(
+fun ProjectTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
@@ -70,7 +72,6 @@ fun JetsnackTheme(
 
     ProvideJetsnackColors(colors) {
         MaterialTheme(
-            colorScheme = debugColors(darkTheme),
             typography = Typography,
             shapes = Shapes,
             content = content
@@ -84,9 +85,9 @@ object JetsnackTheme {
         get() = LocalJetsnackColors.current
 }
 
-/**
+*//**
  * Jetsnack custom Color Palette
- */
+ *//*
 @Immutable
 data class JetsnackColors(
     val gradient6_1: List<Color>,
@@ -131,10 +132,10 @@ private val LocalJetsnackColors = staticCompositionLocalOf<JetsnackColors> {
     error("No JetsnackColorPalette provided")
 }
 
-/**
+*//**
  * A Material [Colors] implementation which sets all colors to [debugColor] to discourage usage of
  * [MaterialTheme.colorScheme] in preference to [JetsnackTheme.colors].
- */
+ *//*
 fun debugColors(
     darkTheme: Boolean,
     debugColor: Color = Color.Magenta
@@ -175,4 +176,52 @@ fun debugColors(
     surfaceContainerHighest = debugColor,
     surfaceContainerLow = debugColor,
     surfaceContainerLowest = debugColor,
+)*/
+
+// Primary colors
+val OliveGreenLight = Color(0xFF8E9775)
+val OliveGreenDark = Color(0xFF556B2F)
+val OliveGreen = Color(0xFF708238)
+
+// Supporting colors
+val LightGray = Color(0xFFF5F5F5)
+val DarkGray = Color(0xFF333333)
+val White = Color(0xFFFFFFFF)
+val Black = Color(0xFF000000)
+val ErrorRed = Color(0xFFB00020)
+
+private val LightColors = lightColorScheme(
+    primary = OliveGreen,
+    onPrimary = White,
+    background = LightGray,
+    onBackground = Black,
+    surface = White,
+    onSurface = DarkGray,
+    error = ErrorRed,
+    onError = White
 )
+
+private val DarkColors = darkColorScheme(
+    primary = OliveGreenDark,
+    onPrimary = White,
+    background = DarkGray,
+    onBackground = LightGray,
+    surface = Black,
+    onSurface = LightGray,
+    error = ErrorRed,
+    onError = Black
+)
+
+@Composable
+fun AppTheme(
+    darkTheme: Boolean = isSystemInDarkTheme(), // Dynamic dark theme support
+    content: @Composable () -> Unit
+) {
+    val colors = if (darkTheme) DarkColors else LightColors
+    MaterialTheme(
+        colorScheme = colors,
+        typography = Typography, // Define Typography in Type.kt
+        shapes = Shapes,         // Define Shapes in Shape.kt
+        content = content
+    )
+}

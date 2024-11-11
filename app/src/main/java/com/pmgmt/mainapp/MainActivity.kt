@@ -1,20 +1,33 @@
 package com.pmgmt.mainapp
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.compose.rememberNavController
+import com.pmgmt.mainapp.data.network.NetworkModule
+import com.pmgmt.mainapp.data.repository.ArchitectRepository
+import com.pmgmt.mainapp.navigation.AppNavHost
+import com.pmgmt.mainapp.presentation.viewmodel.LoginViewModel
+import com.pmgmt.mainapp.presentation.viewmodel.factory.LoginViewModelFactory
+import com.pmgmt.mainapp.themes.AppTheme
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+
+        val apiService = NetworkModule.provideApiService(applicationContext)
+        val architectRepository = ArchitectRepository(apiService)
+        val loginViewModel: LoginViewModel by lazy {
+            ViewModelProvider(this, LoginViewModelFactory(architectRepository))
+                .get(LoginViewModel::class.java)
+        }
+
+        setContent {
+            AppTheme {
+                val navController = rememberNavController()
+                AppNavHost(navController = navController, viewModel = loginViewModel)
+            }
         }
     }
 }
