@@ -11,15 +11,20 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.pmgmt.mainapp.data.model.Project
+import com.pmgmt.mainapp.presentation.viewmodel.ProjectDetailsViewModel
 
 @Composable
 fun ProjectSelectionScreen(
     projects: List<Project>,
-    onProjectSelected: (Project) -> Unit
+    onProjectSelected: (String) -> Unit
 ) {
+
     Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
         Text(
             text = "Select a Project",
@@ -28,20 +33,21 @@ fun ProjectSelectionScreen(
         )
 
         LazyColumn {
-            items(items = projects) { project ->  // Specify items = projects
-                ProjectItem(project = project, onProjectSelected = onProjectSelected)
+            items(items = projects) { project ->
+                ProjectItem(project = project,
+                    onProjectSelected = onProjectSelected)
             }
         }
     }
 }
 
 @Composable
-fun ProjectItem(project: Project, onProjectSelected: (Project) -> Unit) {
+fun ProjectItem(project: Project, onProjectSelected: (String) -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
-            .clickable { onProjectSelected(project) },
+            .clickable { onProjectSelected(project.projectId) },
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(text = project.projectName, style = MaterialTheme.typography.titleLarge)
@@ -51,3 +57,4 @@ fun ProjectItem(project: Project, onProjectSelected: (Project) -> Unit) {
         }
     }
 }
+

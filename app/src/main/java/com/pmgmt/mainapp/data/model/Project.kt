@@ -6,5 +6,7 @@ data class Project(
     val userRole: String,
     val location: String,
     val startDate: String,
-    val endDate: String
+    val endDate: String,
+    val imageUrl: String? = null,
+    val description: String? = null
 )

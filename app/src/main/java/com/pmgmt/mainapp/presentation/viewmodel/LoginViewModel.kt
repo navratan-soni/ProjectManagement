@@ -15,12 +15,8 @@ class LoginViewModel(private val repository: ArchitectRepository) : ViewModel() 
     private val _loginState = MutableStateFlow<LoginState>(LoginState.Idle)
     val loginState: StateFlow<LoginState> = _loginState
 
-    // SharedFlow to emit a one-time navigation event
     private val _navigateToProjects = MutableSharedFlow<List<Project>>(replay = 0)
     val navigateToProjects: SharedFlow<List<Project>> = _navigateToProjects
-
-    private val _selectedProject = MutableStateFlow<Project?>(null)
-    val selectedProject: StateFlow<Project?> = _selectedProject
 
     fun login() {
         viewModelScope.launch {
@@ -37,12 +33,6 @@ class LoginViewModel(private val repository: ArchitectRepository) : ViewModel() 
                 _loginState.value = LoginState.Error("An error occurred")
             }
         }
-    }
-
-    fun selectProject(project: Project) {
-        _selectedProject.value = project
-        // Persist the selected project ID
-        // This could be stored in a DataStore or SharedPreferences
     }
 
     sealed class LoginState {

@@ -53,6 +53,7 @@ dependencies {
     implementation(libs.okhttp.logging)
     implementation(libs.gson)
     implementation(libs.compose.navigation)
+    implementation(libs.coil.compose)
 
     testImplementation(libs.junit)
     testImplementation(composeBom)
