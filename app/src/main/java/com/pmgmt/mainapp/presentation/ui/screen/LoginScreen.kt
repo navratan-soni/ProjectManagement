@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,52 +18,28 @@ import com.pmgmt.mainapp.presentation.viewmodel.LoginViewModel
 import com.pmgmt.mainapp.R
 import com.pmgmt.mainapp.data.model.Project
 
-/*
-@Composable
-fun LoginScreen(viewModel: LoginViewModel, onLoginSuccess: (List<Project>) -> Unit) {
-    val loginState by viewModel.loginState.collectAsState()
-
-    when (loginState) {
-        is LoginViewModel.LoginState.Loading -> Text("Loading...")
-        is LoginViewModel.LoginState.Success -> {
-            val projects = (loginState as LoginViewModel.LoginState.Success).projects
-            onLoginSuccess(projects)
-        }
-        is LoginViewModel.LoginState.Error -> Text("Error: ${(loginState as LoginViewModel.LoginState.Error).message}")
-        else -> Button(onClick = { viewModel.login() }) {
-            Text("Login as Architect")
-        }
-    }
-}*/
 
 @Composable
 fun LoginScreen(
     viewModel: LoginViewModel,
     onLoginSuccess: (List<Project>) -> Unit
 ) {
-    // Collect login state from the ViewModel
     val loginState by viewModel.loginState.collectAsStateWithLifecycle()
 
-    // Handle different login states
-    when (loginState) {
-        /*is LoginViewModel.LoginState.Success -> {
-            // Call onLoginSuccess with the list of projects if login is successful
-            val projects = (loginState as LoginViewModel.LoginState.Success).projects
+    // Collect navigation event from SharedFlow
+    LaunchedEffect(Unit) {
+        viewModel.navigateToProjects.collect { projects ->
             onLoginSuccess(projects)
-        }*/
-        is LoginViewModel.LoginState.Success -> {
-            val projects = (loginState as LoginViewModel.LoginState.Success).projects
-            onLoginSuccess(projects)
-                //viewModel.resetLoginState() // Reset the state after navigating
         }
+    }
+
+    when (loginState) {
         is LoginViewModel.LoginState.Loading -> {
-            // Show a loading indicator or text message for loading state
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 Text(text = "Logging in...")
             }
         }
         is LoginViewModel.LoginState.Error -> {
-            // Show an error message if login failed
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 Text(
                     text = "Login failed. Please try again.",
@@ -72,7 +48,6 @@ fun LoginScreen(
             }
         }
         LoginViewModel.LoginState.Idle -> {
-            // Default UI shown when in Idle state
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -80,16 +55,14 @@ fun LoginScreen(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                // Logo Image
                 Image(
-                    painter = painterResource(id = R.drawable.logo), // Replace with actual logo resource
+                    painter = painterResource(id = R.drawable.logo),
                     contentDescription = "App Logo",
                     modifier = Modifier.size(150.dp)
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                // Big Heading
                 Text(
                     text = "Sarvodaya Constructions",
                     fontSize = 24.sp,
@@ -99,9 +72,8 @@ fun LoginScreen(
 
                 Spacer(modifier = Modifier.height(32.dp))
 
-                // Login Button
                 Button(
-                    onClick = { viewModel.login() }, // Trigger login action in ViewModel
+                    onClick = { viewModel.login() },
                     modifier = Modifier
                         .fillMaxWidth(0.8f)
                         .height(50.dp)
@@ -109,6 +81,10 @@ fun LoginScreen(
                     Text(text = "Login", fontSize = 18.sp)
                 }
             }
+        }
+
+        is LoginViewModel.LoginState.Success -> {
+            // Handle Success minimally since navigation is handled separately
         }
     }
 }

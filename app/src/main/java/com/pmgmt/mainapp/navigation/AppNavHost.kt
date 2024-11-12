@@ -21,17 +21,13 @@ fun AppNavHost(navController: NavHostController, viewModel: LoginViewModel) {
             }
         }
         composable("projectSelection") {
-            val loginState by viewModel.loginState.collectAsState()
-            if (loginState is LoginViewModel.LoginState.Success) {
-                val projects = (loginState as LoginViewModel.LoginState.Success).projects
-                ProjectSelectionScreen(
-                    projects = projects,
-                    onProjectSelected = { project ->
-                        viewModel.selectProject(project)
-                        // You can navigate to another screen from here if needed
-                    }
-                )
-            }
+            val projects = (viewModel.loginState.value as? LoginViewModel.LoginState.Success)?.projects ?: emptyList()
+            ProjectSelectionScreen(
+                projects = projects,
+                onProjectSelected = { project ->
+                    viewModel.selectProject(project)
+                }
+            )
         }
     }
 }
