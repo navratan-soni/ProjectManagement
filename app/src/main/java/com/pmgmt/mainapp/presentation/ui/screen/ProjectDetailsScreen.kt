@@ -1,16 +1,22 @@
 package com.pmgmt.mainapp.presentation.ui.screen
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -46,37 +52,94 @@ fun ProjectDetailsScreen(
 }
 
 @Composable
-fun DisplayProjectDetails(project: Project, onFeedClick: () -> Unit) {
+fun DisplayProjectDetails(
+    project: Project,
+    onFeedClick: () -> Unit
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
-            .verticalScroll(rememberScrollState())
     ) {
+        // Top bar with title and feed icon
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = project.projectName,
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(8.dp)
+            )
+            IconButton(onClick = onFeedClick) {
+                Icon(
+                    imageVector = Icons.Outlined.Home,
+                    contentDescription = "Live Feed",
+                    tint = MaterialTheme.colorScheme.primary
+                )
+            }
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // Project image
         AsyncImage(
             model = project.imageUrl,
             contentDescription = "Project Image",
             modifier = Modifier
                 .fillMaxWidth()
                 .height(200.dp)
+                .align(Alignment.CenterHorizontally)
         )
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Text(text = project.projectName, fontSize = 24.sp, fontWeight = FontWeight.Bold)
-        Text(text = "Location: ${project.location}")
-        Text(text = "Start Date: ${project.startDate}")
-        Text(text = "End Date: ${project.endDate}")
+        // Project details
+        Text(text = "Location: ${project.location}", fontSize = 18.sp)
+        Text(text = "Start Date: ${project.startDate}", fontSize = 18.sp)
+        Text(text = "End Date: ${project.endDate}", fontSize = 18.sp)
         Spacer(modifier = Modifier.height(8.dp))
-        Text(text = project.description ?: "No description available.")
+        Text(text = project.description ?: "No description available.", fontSize = 16.sp)
 
         Spacer(modifier = Modifier.height(32.dp))
 
-        Button(
-            onClick = onFeedClick,
-            modifier = Modifier.fillMaxWidth()
+        // Four static buttons
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Text("Go to Live Feed")
+            StaticButton(text = "Highlights")
+            StaticButton(text = "Milestones")
         }
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            StaticButton(text = "Inventory")
+            StaticButton(text = "Purchases")
+        }
+    }
+}
+
+@Composable
+fun StaticButton(text: String) {
+    Button(
+        onClick = { /* TODO: Implement onClick */ },
+        modifier = Modifier
+            .padding(horizontal = 4.dp),
+        colors = ButtonDefaults.buttonColors(
+            containerColor = MaterialTheme.colorScheme.primary,
+            contentColor = Color.White
+        ),
+        shape = RoundedCornerShape(8.dp)
+    ) {
+        Text(text = text)
     }
 }
