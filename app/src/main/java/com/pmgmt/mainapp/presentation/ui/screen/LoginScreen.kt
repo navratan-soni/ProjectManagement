@@ -24,7 +24,7 @@ fun LoginScreen(
     viewModel: LoginViewModel,
     onLoginSuccess: (List<Project>) -> Unit
 ) {
-    val loginState by viewModel.loginState.collectAsStateWithLifecycle()
+   /* val loginState by viewModel.loginState.collectAsStateWithLifecycle()
 
     // Collect navigation event from SharedFlow
     LaunchedEffect(Unit) {
@@ -86,5 +86,5 @@ fun LoginScreen(
         is LoginViewModel.LoginState.Success -> {
             // Handle Success minimally since navigation is handled separately
         }
-    }
+    }*/
 }

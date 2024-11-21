@@ -10,33 +10,30 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
+
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import com.pmgmt.mainapp.data.model.ArchitectLoginResponse
+
 class LoginViewModel(private val repository: ArchitectRepository) : ViewModel() {
 
-    private val _loginState = MutableStateFlow<LoginState>(LoginState.Idle)
-    val loginState: StateFlow<LoginState> = _loginState
-
-    private val _navigateToProjects = MutableSharedFlow<List<Project>>(replay = 0)
-    val navigateToProjects: SharedFlow<List<Project>> = _navigateToProjects
+    private val _loginState = MutableLiveData<LoginState>()
+    val loginState: LiveData<LoginState> = _loginState
 
     fun login() {
         viewModelScope.launch {
             _loginState.value = LoginState.Loading
             try {
                 val response = repository.loginArchitect()
-                if (response.success) {
-                    _loginState.value = LoginState.Success(response.projects)
-                    _navigateToProjects.emit(response.projects) // Emit a one-time navigation event
-                } else {
-                    _loginState.value = LoginState.Error("Login failed")
-                }
+                _loginState.value = LoginState.Success(response.projects)
             } catch (e: Exception) {
-                _loginState.value = LoginState.Error("An error occurred")
+                _loginState.value = LoginState.Error("Login failed")
             }
         }
     }
 
     sealed class LoginState {
-        object Idle : LoginState()
         object Loading : LoginState()
         data class Success(val projects: List<Project>) : LoginState()
         data class Error(val message: String) : LoginState()

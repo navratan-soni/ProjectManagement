@@ -25,6 +25,7 @@ import coil.compose.rememberImagePainter
 import com.pmgmt.mainapp.data.model.Project
 import com.pmgmt.mainapp.presentation.viewmodel.ProjectDetailsViewModel
 
+/*
 @Composable
 fun ProjectDetailsScreen(
     projectId: String,
@@ -131,7 +132,9 @@ fun DisplayProjectDetails(
 @Composable
 fun StaticButton(text: String) {
     Button(
-        onClick = { /* TODO: Implement onClick */ },
+        onClick = { */
+/* TODO: Implement onClick *//*
+ },
         modifier = Modifier
             .padding(horizontal = 4.dp),
         colors = ButtonDefaults.buttonColors(
@@ -142,4 +145,4 @@ fun StaticButton(text: String) {
     ) {
         Text(text = text)
     }
-}
+}*/
