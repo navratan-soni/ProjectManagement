@@ -1,10 +1,10 @@
 {
-  "projectId": "proj001",
-  "projectName": "Skyline Towers",
+  "projectId": "PRJ001",
+  "projectName": "Green Valley Residences",
   "userRole": "Architect",
   "location": "Noida",
-  "startDate": "2023-01-10",
-  "endDate": "2024-01-10",
+  "startDate": "2023-01-15",
+  "endDate": "2024-06-30",
   "imageUrl": "https://picsum.photos/id/142/400/250",
   "description": "This is a sample project description."
 }

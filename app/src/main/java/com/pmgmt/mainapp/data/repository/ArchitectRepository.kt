@@ -7,5 +7,10 @@ import com.pmgmt.mainapp.data.network.ApiService
 
 class ArchitectRepository(private val apiService: ApiService) {
     suspend fun loginArchitect(): ArchitectLoginResponse = apiService.loginArchitect()
+
+    suspend fun getProjects(role: String): List<Project> {
+        return apiService.getProjects(role = role).projects
+    }
+
     suspend fun getProjectDetails(projectId: String): Project = apiService.getProjectDetails(projectId)
 }

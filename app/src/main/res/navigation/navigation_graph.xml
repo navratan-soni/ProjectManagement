@@ -2,11 +2,11 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/projectSelectionFragment">
+    app:startDestination="@id/projectListFragment">
     <fragment
-        android:id="@+id/projectSelectionFragment"
-        android:name="ProjectSelectionFragment"
-        android:label="Project Selection">
+        android:id="@+id/projectListFragment"
+        android:name="ProjectListFragment"
+        android:label="Projects">
         <action
             android:id="@+id/action_projectSelection_to_projectDetails"
             app:destination="@id/projectDetailsFragment" />
@@ -20,4 +20,9 @@
             android:name="projectId"
             app:argType="string" />
     </fragment>
+
+    <action
+        android:id="@+id/action_projectList_to_projectDetails"
+        app:destination="@id/projectDetailsFragment" />
+
 </navigation>

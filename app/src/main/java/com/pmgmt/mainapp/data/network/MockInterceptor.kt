@@ -45,7 +45,7 @@ class MockInterceptor(private val context: Context) : Interceptor {
         val jsonFileName = when {
             url.contains("login") -> "architect_login.json"
             url.contains("project_details") -> "project_details.json"
-            // Add more cases as needed for different mock endpoints
+            url.contains("project_list") -> "project_list.json"
             else -> null
         }
 
