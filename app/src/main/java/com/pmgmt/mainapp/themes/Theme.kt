@@ -1,10 +1,6 @@
 package com.pmgmt.mainapp.themes
 
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material3.ColorScheme
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.Immutable
@@ -179,6 +175,7 @@ fun debugColors(
 )*/
 
 // Primary colors
+/*
 val OliveGreenLight = Color(0xFF8E9775)
 val OliveGreenDark = Color(0xFF556B2F)
 val OliveGreen = Color(0xFF708238)
@@ -224,4 +221,4 @@ fun AppTheme(
         shapes = Shapes,         // Define Shapes in Shape.kt
         content = content
     )
-}
+}*/

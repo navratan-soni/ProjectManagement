@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Text Appearances -->
+    <style name="TextAppearance.ProjectManagement.BodyLarge" parent="TextAppearance.Material3.BodyLarge">
+        <item name="android:fontFamily">@font/montserrat</item>
+        <item name="fontFamily">@font/montserrat_light</item>
+        <item name="android:textColor">@color/md_theme_onSurface</item>
+    </style>
+    <style name="TextAppearance.ProjectManagement.BodyMedium" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:fontFamily">@font/montserrat</item>
+        <item name="fontFamily">@font/montserrat_light</item>
+        <item name="android:textColor">@color/md_theme_onSurface</item>
+    </style>
+    <style name="TextAppearance.ProjectManagement.BodySmall" parent="TextAppearance.Material3.BodySmall">
+        <item name="android:fontFamily">@font/montserrat</item>
+        <item name="fontFamily">@font/montserrat_light</item>
+        <item name="android:textColor">@color/md_theme_onSurfaceVariant</item>
+    </style>
+
+    <style name="TextAppearance.ProjectManagement.HeadlineLarge" parent="TextAppearance.Material3.HeadlineLarge">
+        <item name="android:fontFamily">@font/montserrat_light</item>
+        <item name="fontFamily">@font/montserrat_light</item>
+    </style>
+
+    <style name="TextAppearance.ProjectManagement.HeadlineMedium" parent="TextAppearance.Material3.HeadlineMedium">
+        <item name="android:fontFamily">@font/montserrat_light</item>
+        <item name="fontFamily">@font/montserrat_light</item>
+    </style>
+
+    <!-- Widget Styles -->
+    <style name="Widget.ProjectManagement.Button" parent="Widget.Material3.Button">
+        <item name="android:fontFamily">@font/montserrat_bold</item>
+        <item name="fontFamily">@font/montserrat_bold</item>
+        <item name="cornerFamily">?attr/shapeCornerFamily</item>
+        <item name="cornerSize">50%</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="Widget.ProjectManagement.TextInputLayout" parent="Widget.Material3.TextInputLayout.FilledBox">
+        <item name="boxBackgroundColor">@color/md_theme_surfaceContainer</item>
+        <item name="hintTextColor">?attr/colorPrimary</item>
+    </style>
+</resources>

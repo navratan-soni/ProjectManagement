@@ -7,13 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation.findNavController
 import com.pmgmt.mainapp.R
 import com.pmgmt.mainapp.presentation.viewmodel.LoginViewModel
 
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.pmgmt.mainapp.MainActivity
 import com.pmgmt.mainapp.data.network.ApiService
 import com.pmgmt.mainapp.data.network.NetworkModule
@@ -50,12 +47,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
         view.findViewById<Button>(R.id.loginButton).setOnClickListener {
             loginViewModel.login()
-        }
-
-        loginViewModel.loginState.observe(viewLifecycleOwner) { state ->
-            if (state is LoginViewModel.LoginState.Success) {
-
-            }
         }
         setupObservers()
     }
