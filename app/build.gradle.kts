@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.safeargs)
+    kotlin("kapt")
 }
 
 android {
@@ -60,6 +61,8 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
+    implementation(libs.glide)
+    kapt(libs.glide.compiler)
 
     // Lifecycle dependencies
     implementation(libs.lifecycle.viewmodel)

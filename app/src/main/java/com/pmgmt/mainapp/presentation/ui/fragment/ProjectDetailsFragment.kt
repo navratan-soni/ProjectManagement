@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.pmgmt.mainapp.R
 import com.pmgmt.mainapp.databinding.FragmentProjectDetailsBinding
 import com.pmgmt.mainapp.presentation.viewmodel.ProjectDetailsViewModel
@@ -58,6 +59,11 @@ class ProjectDetailsFragment : Fragment(R.layout.fragment_project_details) {
                 projectStartDate.text = "Start Date: ${project.startDate}"
                 projectEndDate.text = "End Date: ${project.endDate}"
                 projectDescription.text = project.description ?: "No description available."
+
+                Glide.with(requireContext())
+                    .load(project.imageUrl)
+                    .centerCrop()
+                    .into(projectImage)
             }
         }
     }
