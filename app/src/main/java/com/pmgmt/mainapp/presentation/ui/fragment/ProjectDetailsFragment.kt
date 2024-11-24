@@ -14,6 +14,7 @@ import com.pmgmt.mainapp.data.repository.ArchitectRepository
 import com.pmgmt.mainapp.data.network.ApiService
 import com.pmgmt.mainapp.data.network.NetworkModule
 import com.pmgmt.mainapp.presentation.viewmodel.factory.ProjectDetailsViewModelFactory
+import com.pmgmt.mainapp.util.loadWithGlide
 
 class ProjectDetailsFragment : Fragment(R.layout.fragment_project_details) {
     private var _binding: FragmentProjectDetailsBinding? = null
@@ -59,11 +60,7 @@ class ProjectDetailsFragment : Fragment(R.layout.fragment_project_details) {
                 projectStartDate.text = "Start Date: ${project.startDate}"
                 projectEndDate.text = "End Date: ${project.endDate}"
                 projectDescription.text = project.description ?: "No description available."
-
-                Glide.with(requireContext())
-                    .load(project.imageUrl)
-                    .centerCrop()
-                    .into(projectImage)
+                projectImage.loadWithGlide(project.imageUrl)
             }
         }
     }
