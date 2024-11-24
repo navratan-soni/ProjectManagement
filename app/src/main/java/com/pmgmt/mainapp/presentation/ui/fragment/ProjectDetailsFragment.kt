@@ -1,31 +1,99 @@
 package com.pmgmt.mainapp.presentation.ui.fragment
+
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.ArrayAdapter
-import android.widget.ImageView
-import android.widget.ListView
-import android.widget.TextView
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import coil.load
+import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.pmgmt.mainapp.R
-import com.pmgmt.mainapp.presentation.viewmodel.LoginViewModel
+import com.pmgmt.mainapp.databinding.FragmentProjectDetailsBinding
 import com.pmgmt.mainapp.presentation.viewmodel.ProjectDetailsViewModel
+import com.pmgmt.mainapp.data.repository.ArchitectRepository
+import com.pmgmt.mainapp.data.network.ApiService
+import com.pmgmt.mainapp.data.network.NetworkModule
+import com.pmgmt.mainapp.presentation.viewmodel.factory.ProjectDetailsViewModelFactory
 
 class ProjectDetailsFragment : Fragment(R.layout.fragment_project_details) {
-    private val viewModel: ProjectDetailsViewModel by viewModels()
+    private var _binding: FragmentProjectDetailsBinding? = null
+    private val binding get() = _binding!!
+
+    private val apiService: ApiService by lazy {
+        NetworkModule.provideApiService(requireContext())
+    }
+
+    private val architectRepository: ArchitectRepository by lazy {
+        ArchitectRepository(apiService)
+    }
+
+    private val viewModel: ProjectDetailsViewModel by lazy {
+        ViewModelProvider(this, ProjectDetailsViewModelFactory(architectRepository))
+            .get(ProjectDetailsViewModel::class.java)
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentProjectDetailsBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val projectId = arguments?.getString("projectId") ?: return
-        viewModel.loadProjectDetails(projectId)
 
+        val projectId = arguments?.getString("projectId") ?: return
+
+        setupObservers()
+        setupClickListeners()
+        viewModel.loadProjectDetails(projectId)
+    }
+
+    private fun setupObservers() {
         viewModel.projectDetails.observe(viewLifecycleOwner) { project ->
-            view.findViewById<TextView>(R.id.projectTitle).text = project.projectName
-            view.findViewById<TextView>(R.id.projectLocation).text = project.location
-            view.findViewById<TextView>(R.id.projectDates).text = "${project.startDate} - ${project.endDate}"
-            view.findViewById<ImageView>(R.id.projectImage).load(project.imageUrl)
+            binding.apply {
+                projectTitle.text = project.projectName
+                projectLocation.text = "Location: ${project.location}"
+                projectStartDate.text = "Start Date: ${project.startDate}"
+                projectEndDate.text = "End Date: ${project.endDate}"
+                projectDescription.text = project.description ?: "No description available."
+
+                Glide.with(requireContext())
+                    .load(project.imageUrl)
+                    .centerCrop()
+                    .into(projectImage)
+            }
         }
+    }
+
+    private fun setupClickListeners() {
+        binding.apply {
+            feedButton.setOnClickListener {
+                // Handle feed click
+            }
+
+            highlightsButton.setOnClickListener {
+                // Handle highlights click
+            }
+
+            milestonesButton.setOnClickListener {
+                // Handle milestones click
+            }
+
+            inventoryButton.setOnClickListener {
+                // Handle inventory click
+            }
+
+            purchasesButton.setOnClickListener {
+                // Handle purchases click
+            }
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
