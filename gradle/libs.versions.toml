@@ -17,7 +17,6 @@ compose-navigation = "2.5.3"
 coil = "2.1.0"
 lifecycle = "2.4.1"
 navigation = "2.8.4"
-glide = "4.15.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -44,13 +43,10 @@ navigation-fragment = { module = "androidx.navigation:navigation-fragment-ktx", 
 navigation-ui = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigation" }
 lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
 lifecycle-livedata = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycle" }
-glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
-glide-compiler-ksp = { group = "com.github.bumptech.glide", name = "compiler", version.ref = "glide" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 safeargs = { id = "androidx.navigation.safeargs.kotlin", version.ref = "navigation" }
-ksp = { id = "com.google.devtools.ksp", version = "1.9.0-1.0.13" }
 
