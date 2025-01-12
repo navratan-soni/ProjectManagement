@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">ProjectManagement</string>
+    <string name="architectural_drawings">Architectural Drawings</string>
+    <string name="expenditures">Expenditures</string>
+    <string name="suppliers">Suppliers</string>
+    <string name="site_photos">Site Photos</string>
+    <string name="live_feed">Live Feed</string>
+    <string name="purchases">Purchases</string>
+    <string name="inventory">Inventory</string>
+    <string name="meeting_records">Meeting Records</string>
+    <string name="important_dates">Important Dates</string>
+    <string name="reports">Reports</string>
+    <string name="logout">Logout</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="change_project">Change Project</string>
 </resources>

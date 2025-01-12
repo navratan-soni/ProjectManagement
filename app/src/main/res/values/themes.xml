@@ -63,7 +63,7 @@
         <item name="textInputStyle">@style/Widget.ProjectManagement.TextInputLayout</item>
 
         <!-- Default font family -->
-        <item name="android:fontFamily">@font/montserrat</item>
-        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:fontFamily">@font/montserrat_semibold</item>
+        <item name="fontFamily">@font/montserrat_semibold</item>
     </style>
 </resources>

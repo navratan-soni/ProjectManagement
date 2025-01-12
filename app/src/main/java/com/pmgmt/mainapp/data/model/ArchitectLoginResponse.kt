@@ -6,5 +6,6 @@ data class ArchitectLoginResponse(
     val name: String,
     val role: String,
     val token: String,
+    val defaultProjectId: String,
     val projects: List<Project>
 )

@@ -1,7 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.compose.compiler)
     alias(libs.plugins.safeargs)
     kotlin("kapt")
 }
@@ -16,7 +15,6 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -43,37 +41,33 @@ android {
 }
 
 dependencies {
-
-    val composeBom = platform(libs.compose.bom)
-    implementation(composeBom)
-    implementation(libs.compose.foundation)
+    // AndroidX and Material
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+
+    // Networking
     implementation(libs.retrofit)
     implementation(libs.retrofit.gson)
     implementation(libs.okhttp)
     implementation(libs.okhttp.logging)
     implementation(libs.gson)
-    implementation(libs.compose.navigation)
-    implementation(libs.coil.compose)
+
+    // Image Loading
+    implementation(libs.coil)
+
+    // Navigation
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
-    implementation(libs.glide)
-    kapt(libs.glide.compiler)
 
-    // Lifecycle dependencies
+    // Lifecycle
     implementation(libs.lifecycle.viewmodel)
     implementation(libs.lifecycle.livedata)
 
+    // Testing
     testImplementation(libs.junit)
-    testImplementation(composeBom)
-    testImplementation(libs.compose.ui.test.junit4)
-
-    androidTestImplementation(composeBom)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(libs.compose.ui.test)
 }

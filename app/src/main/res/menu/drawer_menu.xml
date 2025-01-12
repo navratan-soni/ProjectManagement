@@ -1,0 +1,53 @@
+<!-- res/menu/drawer_menu.xml -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_dashboard"
+            android:icon="@android:drawable/ic_lock_idle_alarm"
+            android:title="@string/dashboard" />
+        <item
+            android:id="@+id/nav_arch_drawings"
+            android:icon="@android:drawable/ic_lock_idle_alarm"
+            android:title="@string/architectural_drawings" />
+        <item
+            android:id="@+id/nav_expenditures"
+            android:icon="@android:drawable/ic_lock_idle_alarm"
+            android:title="@string/expenditures" />
+        <item
+            android:id="@+id/nav_suppliers"
+            android:icon="@android:drawable/ic_lock_idle_alarm"
+            android:title="@string/suppliers" />
+        <item
+            android:id="@+id/nav_site_photos"
+            android:icon="@android:drawable/ic_lock_idle_alarm"
+            android:title="@string/site_photos" />
+        <item
+            android:id="@+id/nav_live_feed"
+            android:icon="@android:drawable/ic_lock_idle_alarm"
+            android:title="@string/live_feed" />
+        <item
+            android:id="@+id/nav_purchases"
+            android:icon="@android:drawable/ic_lock_idle_alarm"
+            android:title="@string/purchases" />
+        <item
+            android:id="@+id/nav_inventory"
+            android:icon="@android:drawable/ic_lock_idle_alarm"
+            android:title="@string/inventory" />
+        <item
+            android:id="@+id/nav_meeting_records"
+            android:icon="@android:drawable/ic_lock_idle_alarm"
+            android:title="@string/meeting_records" />
+        <item
+            android:id="@+id/nav_important_dates"
+            android:icon="@android:drawable/ic_lock_idle_alarm"
+            android:title="@string/important_dates" />
+        <item
+            android:id="@+id/nav_reports"
+            android:icon="@android:drawable/ic_lock_idle_alarm"
+            android:title="@string/reports" />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@android:drawable/ic_lock_idle_alarm"
+            android:title="@string/logout" />
+    </group>
+</menu>

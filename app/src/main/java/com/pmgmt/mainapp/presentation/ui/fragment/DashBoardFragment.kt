@@ -1,23 +1,26 @@
 package com.pmgmt.mainapp.presentation.ui.fragment
 
+import ProjectListFragment
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.bumptech.glide.Glide
+import coil.load
 import com.pmgmt.mainapp.R
-import com.pmgmt.mainapp.databinding.FragmentProjectDetailsBinding
 import com.pmgmt.mainapp.presentation.viewmodel.ProjectDetailsViewModel
 import com.pmgmt.mainapp.data.repository.ArchitectRepository
 import com.pmgmt.mainapp.data.network.ApiService
 import com.pmgmt.mainapp.data.network.NetworkModule
+import com.pmgmt.mainapp.databinding.FragmentDashboardBinding
 import com.pmgmt.mainapp.presentation.viewmodel.factory.ProjectDetailsViewModelFactory
-import com.pmgmt.mainapp.util.loadWithGlide
 
-class ProjectDetailsFragment : Fragment(R.layout.fragment_project_details) {
-    private var _binding: FragmentProjectDetailsBinding? = null
+class DashBoardFragment : Fragment(R.layout.fragment_dashboard) {
+    private var _binding: FragmentDashboardBinding? = null
     private val binding get() = _binding!!
 
     private val apiService: ApiService by lazy {
@@ -38,12 +41,13 @@ class ProjectDetailsFragment : Fragment(R.layout.fragment_project_details) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentProjectDetailsBinding.inflate(inflater, container, false)
+        _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupMenu()
 
         val projectId = arguments?.getString("projectId") ?: return
 
@@ -60,7 +64,7 @@ class ProjectDetailsFragment : Fragment(R.layout.fragment_project_details) {
                 projectStartDate.text = "Start Date: ${project.startDate}"
                 projectEndDate.text = "End Date: ${project.endDate}"
                 projectDescription.text = project.description ?: "No description available."
-                projectImage.loadWithGlide(project.imageUrl)
+                projectImage.load(project.imageUrl)
             }
         }
     }
@@ -87,6 +91,26 @@ class ProjectDetailsFragment : Fragment(R.layout.fragment_project_details) {
                 // Handle purchases click
             }
         }
+    }
+
+    private fun setupMenu() {
+        val menuHost = requireActivity() as androidx.core.view.MenuHost
+        menuHost.addMenuProvider(object : androidx.core.view.MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.dashboard_menu, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return when (menuItem.itemId) {
+                    R.id.action_switch_project -> {
+                        val dialogFragment = ProjectListFragment()
+                        dialogFragment.show(parentFragmentManager, "ProjectListDialog")
+                        true
+                    }
+                    else -> false
+                }
+            }
+        }, viewLifecycleOwner)
     }
 
     override fun onDestroyView() {

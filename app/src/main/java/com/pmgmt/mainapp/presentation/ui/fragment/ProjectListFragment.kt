@@ -1,9 +1,13 @@
+import android.app.AlertDialog
+import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ListView
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -11,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.pmgmt.mainapp.R
+import com.pmgmt.mainapp.data.model.Project
 import com.pmgmt.mainapp.data.network.ApiService
 import com.pmgmt.mainapp.data.network.NetworkModule
 import com.pmgmt.mainapp.data.repository.ArchitectRepository
@@ -21,7 +26,7 @@ import com.pmgmt.mainapp.presentation.viewmodel.ProjectListViewModel
 import com.pmgmt.mainapp.presentation.viewmodel.factory.ProjectListViewModelFactory
 
 
-class ProjectListFragment : Fragment(R.layout.fragment_project_list) {
+class ProjectListFragment : DialogFragment(R.layout.fragment_project_list) {
     /*private val viewModel: LoginViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -51,6 +56,12 @@ class ProjectListFragment : Fragment(R.layout.fragment_project_list) {
     private var _binding: FragmentProjectListBinding? = null
     private val binding get() = _binding!!
 
+    private var listener: ProjectSelectionListener? = null
+
+    interface ProjectSelectionListener {
+        fun onProjectSelected(project: Project)
+    }
+
     private val apiService: ApiService by lazy {
         NetworkModule.provideApiService(requireContext())
     }
@@ -65,12 +76,33 @@ class ProjectListFragment : Fragment(R.layout.fragment_project_list) {
     }
 
     private val projectAdapter = ProjectListAdapter { project ->
-        findNavController().navigate(
+        /*findNavController().navigate(
             R.id.action_projectList_to_projectDetails,
             Bundle().apply {
                 putString("projectId", project.projectId)
             }
-        )
+        )*/
+        listener?.onProjectSelected(project)
+        dismiss()
+    }
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val context: Context = requireContext()
+        val builder = AlertDialog.Builder(context)
+        val projects = viewModel.getProjects() // Mocked data or fetched list
+
+        val projectNames = projects.map { it.projectName }
+
+        builder.setTitle("Select a Project")
+            .setAdapter(projectAdapter) { _, which ->
+                val selectedProject = projects[which]
+                viewModel.selectProject(selectedProject)
+                dismiss()
+            }
+            .setNegativeButton("Cancel") { _, _ -> dismiss() }
+
+        return builder.create()
+        return super.onCreateDialog(savedInstanceState)
     }
 
     override fun onCreateView(
